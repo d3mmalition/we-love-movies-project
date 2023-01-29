@@ -1,0 +1,6 @@
+CREATE TABLE critics (
+critic_id serial primary key,
+preferred_name varchar(255),
+surname: varchar(255),
+organization_name varchar(255)
+);
