@@ -2,8 +2,8 @@ if (process.env.USER) require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
-const errorHandler = require("./utils/errors/errorHandler");
-const notFound = require("./utils/errors/notFound");
+const errorHandler = require("./errors/errorHandler");
+const notFound = require("./errors/notFound");
 const reviewsRouter = require("./reviews/reviews.router");
 const moviesRouter = require("./movies/movies.router");
 const theatersRouter = require("./theaters/theaters.router");

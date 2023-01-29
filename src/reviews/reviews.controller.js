@@ -1,5 +1,5 @@
 const service = require("./reviews.service");
-const asyncErrorBoundary = require("../utils/errors/asyncErrorBoundary");
+const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
 async function _paramsCheck(req, res, next) {
   const { reviewId } = req.params;

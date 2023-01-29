@@ -1,5 +1,5 @@
 const service = require("./movies.service");
-const asyncErrorBoundary = require("../utils/errors/asyncErrorBoundary");
+const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
 //middleware
 const _paramsCheck = async (req, res, next) => {
