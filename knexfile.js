@@ -3,7 +3,7 @@ const path = require("path");
 require("dotenv").config();
 
 const {
-  DATABASE_URL = "postgres://postgres:postgres@localhost:5432/movedb",
+  DATABASE_URL = "postgres://postgres:password@localhost:5432/movedb",
 } = process.env;
 
 module.exports = {
@@ -32,7 +32,7 @@ module.exports = {
   },
 
   test: {
-    client: "sqlite3",
+    client: "postgresql",
     connection: {
       filename: ":memory:",
     },
