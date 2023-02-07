@@ -16,11 +16,6 @@ app.use("/movies", moviesRouter);
 app.use("/reviews", reviewsRouter);
 app.use("/theaters", theatersRouter);
 
-// app.use((error, req, res) => {
-//   console.log(error.message, error.status, '+++++++++++++++')
-//   const { status, message} = error
-//   res.status(status).json(message)
-// })
 app.use(notFound);
 app.use(errorHandler)
 
