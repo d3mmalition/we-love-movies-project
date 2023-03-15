@@ -79,7 +79,7 @@ const _paramsCheck = async (req, res, next) => {
 async function list(req, res) {
   const { is_showing } = req.query;
   const data = is_showing
-    ? await (await service.listShowing()).splice(0, 15)
+    ? await (await service.showingList()).splice(0, 15)
     : await service.list();
 
   res.status(200).json({ data: data });
