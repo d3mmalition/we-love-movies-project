@@ -6,7 +6,7 @@ exports.up = function(knex) {
     table.integer("score").unsigned().notNullable();
     table.integer("critic_id").unsigned().notNullable()
     table.integer("movie_id").unsigned().notNullable();
-    table.integer("theater_id").unsigned().notNullable();
+    table.integer("theater_id").unsigned();
     table
           .foreign("movie_id")
           .references("movie_id")

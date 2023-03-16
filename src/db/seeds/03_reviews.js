@@ -22,26 +22,39 @@ transitus quam longius aenea, concussaque hoc mille.
 
 Ut erat. Tibi Themin corpore saepes.`;
 
+const crypto = require('crypto');
+
 const generateReviews = (criticIds, movieIds) => {
-  return movieIds
-    .map(({ movie_id }) => {
-      return criticIds.map(({ critic_id }) => {
-        return {
-          content,
-          score: Math.ceil(Math.random() * 5),
-          critic_id,
-          movie_id,
-        };
-      });
+  return Array.from(movieIds, ({ movie_id }) =>
+    Array.from(criticIds, ({ critic_id }) => {
+      const contentHash = crypto.createHash('sha256')
+        .update(`${movie_id}-${critic_id}-${Date.now()}-${Math.random()}`)
+        .digest('hex');
+      return {
+        id: contentHash,
+        content,
+        score: Math.ceil(Math.random() * 5),
+        critic_id,
+        movie_id,
+      }
     })
-    .reduce((a, b) => a.concat(b), [])
-    .filter((reviews) => reviews.content);
+  ).flat();
 };
 
-exports.seed = async function (knex) {
-  const criticIds = await knex("critics").select("critic_id");
-  const movieIds = await knex("movies").select("movie_id");
 
-  const reviews = generateReviews(criticIds, movieIds);
-  return knex("reviews").insert(reviews);
+exports.seed = async function(knex) {
+  const reviews = [
+    { content: '...', critic_id: 1, movie_id: 1, score: 8 },
+    { content: '...', critic_id: 1, movie_id: 2, score: 7 },
+    // ...
+  ];
+
+  const batchSize = 100;
+  const batches = [];
+  for (let i = 0; i < reviews.length; i += batchSize) {
+    batches.push(reviews.slice(i, i + batchSize));
+  }
+  for (const batch of batches) {
+    await knex.batchInsert('reviews', batch, batchSize);
+  }
 };
